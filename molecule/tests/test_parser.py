@@ -45,11 +45,9 @@ def test_tokenizer(formula_str, expected):
             [2, ("A", 1), 3, ("B", 1), ("A", 2), "(", ("C", 1), "("],
             {"A": 14, "B": 6, "C": 2},
         ),
+        # ((A2)3(B)4)5
+        ([5, 4, ("B", 1), "(", 3, ("A", 2), "(", "("], {"A": 30, "B": 20}),
     ],
 )
 def test_multiply(formula, expected):
     assert multiply((e for e in formula)) == expected
-
-
-def test_integration():
-    pass
