@@ -4,7 +4,7 @@
 
 ## Tests
 
-Tests were made with pytest, coverage is optional
+Tests were made with pytest using coverage
 
 ```sh
 $ pytest --cov molecule .
