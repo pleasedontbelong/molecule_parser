@@ -1,5 +1,7 @@
 import re
 
+from molecule.validator import validate
+
 
 def clean(formula):
     """
@@ -67,4 +69,6 @@ def multiply(formula, result_map=None, multiplier=1):
 
 
 def parse_molecule(formula):
-    return multiply(tokenizer(clean(formula)))
+    formula = clean(formula)
+    validate(formula)
+    return multiply(tokenizer(formula))

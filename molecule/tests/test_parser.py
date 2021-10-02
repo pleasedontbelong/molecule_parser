@@ -63,6 +63,8 @@ def test_multiply(formula, expected):
         ("H2O", {"H": 2, "O": 1}),
         ("Mg(OH)2", {"Mg": 1, "O": 2, "H": 2}),
         ("K4[ON(SO3)2]2", {"K": 4, "O": 14, "N": 2, "S": 4}),
+        ("(H2O)0", {"H": 0, "O": 0}),
+        ("", {}),
     ],
 )
 def test_integration(formula, expected):
