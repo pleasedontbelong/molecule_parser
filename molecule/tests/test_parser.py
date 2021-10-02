@@ -33,7 +33,7 @@ def test_clean(formula_str, expected):
     ],
 )
 def test_multiply(formula, expected):
-    assert multiply({}, (e for e in formula)) == expected
+    assert multiply((e for e in formula)) == expected
 
 
 def test_integration():

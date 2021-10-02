@@ -42,14 +42,16 @@ def tokenizer(formula_str):
     #         yield int(token)
 
 
-def multiply(result_map, formula, multiplier=1):
+def multiply(formula, result_map=None, multiplier=1):
+    if result_map is None:
+        result_map = {}
     current_multiplier = multiplier
     for element in formula:
         if element == "(":
             return result_map
         if type(element) is int:
             current_multiplier = element
-            sub_formula = multiply({}, formula, multiplier=current_multiplier)
+            sub_formula = multiply(formula, multiplier=current_multiplier)
             for sub_element, value in sub_formula.items():
                 result_map[sub_element] = (
                     result_map.get(sub_element, 0) + value * multiplier
@@ -61,4 +63,4 @@ def multiply(result_map, formula, multiplier=1):
 
 
 def parse(formula):
-    return multiply({}, tokenizer(clean(formula)))
+    return multiply(tokenizer(clean(formula)))
