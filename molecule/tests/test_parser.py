@@ -1,5 +1,5 @@
 import pytest
-from molecule.parser import clean, multiply, parse
+from molecule.parser import clean, multiply, parse, tokenizer
 
 
 @pytest.mark.parametrize(
@@ -18,6 +18,21 @@ from molecule.parser import clean, multiply, parse
 )
 def test_clean(formula_str, expected):
     assert clean(formula_str) == expected
+
+
+@pytest.mark.parametrize(
+    "formula_str,expected",
+    [
+        ("(A)1", [1, ("A", 1), "("]),
+        ("(A12B)345", [345, ("B", 1), ("A", 12), "("]),
+        ("(AbC)1", [1, ("C", 1), ("Ab", 1), "("]),
+        ("(Ab2C)3", [3, ("C", 1), ("Ab", 2), "("]),
+        ("(Ab23C)4", [4, ("C", 1), ("Ab", 23), "("]),
+        ("((A2)3(B)4)5", [5, 4, ("B", 1), "(", 3, ("A", 2), "(", "("]),
+    ],
+)
+def test_tokenizer(formula_str, expected):
+    assert list(tokenizer(formula_str)) == expected
 
 
 @pytest.mark.parametrize(

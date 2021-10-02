@@ -21,25 +21,27 @@ def clean(formula):
 
 
 def tokenizer(formula_str):
-    # Test (C(A2B)3A)2
-    for e in [2, ("A", 1), 3, ("B", 1), ("A", 2), "(", ("C", 1), "("]:
-        yield e
-    # formula = list(formula_str)
-    # while formula:
-    #     token = formula.pop()
-    #     if token in "()":
-    #         yield token
-    #     elif re.match(r"[A-Z]", token):
-    #         next = formula[-1]
-    #         element = token
-    #         if re.match(r"[a-z]", next):
-    #             element += formula.pop()
-    #         if next.isnumeric():
-    #             yield (element, formula.pop())
-    #         else:
-    #             yield (element, 1)
-    #     elif token.isnumeric():
-    #         yield int(token)
+    formula = list(formula_str)
+    while formula:
+        token = formula.pop()
+        if token == "(":
+            yield token
+        elif re.match(r"[a-z]", token):
+            yield (f"{formula.pop()}{token}", 1)
+        elif re.match(r"[A-Z]", token):
+            yield (token, 1)
+        elif token.isnumeric():
+            digits = token
+            while formula[-1].isnumeric():
+                digits = formula.pop() + digits
+            digits = int(digits)
+            previous = formula.pop()
+            if previous == ")":
+                yield digits
+            elif re.match(r"[a-z]", previous):
+                yield (f"{formula.pop()}{previous}", digits)
+            else:
+                yield (previous, digits)
 
 
 def multiply(formula, result_map=None, multiplier=1):
