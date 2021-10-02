@@ -1,11 +1,15 @@
 import re
 
+from molecule.validator import validate
+
 
 def clean(formula):
     """
     Harmonize the formula. Replaces brackets and braces with parentheses, and
     adds a multiplier 1 at the end of every closing parentheses that doesn't have one
     """
+    # remove spaces
+    formula = re.sub(r"(\s+)", "", formula)
     # replaces start brackets
     formula = re.sub(r"[\[\{]", "(", formula)
     # replaces closing brackets
@@ -67,4 +71,6 @@ def multiply(formula, result_map=None, multiplier=1):
 
 
 def parse_molecule(formula):
-    return multiply(tokenizer(clean(formula)))
+    formula = clean(formula)
+    validate(formula)
+    return multiply(tokenizer(formula))

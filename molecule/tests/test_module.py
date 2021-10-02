@@ -2,10 +2,12 @@ import pytest
 from molecule.__main__ import run
 from unittest.mock import patch
 
+from molecule.exceptions import InvalidFormulaParentheses
+
 
 def test_run():
     with patch("molecule.__main__.parse_molecule", return_value={}) as parse_mock:
-        run(*["foo", "H2O"])
+        run("foo", "H2O")
         parse_mock.assert_called_once()
 
 
@@ -16,3 +18,13 @@ def test_run_invalid_arguments(arguments):
             run(*arguments)
             assert e.type == SystemExit
             assert e.value.code == 1
+
+
+def test_exception():
+    with patch("molecule.__main__.parse_molecule") as parse_mock:
+        parse_mock.side_effect = InvalidFormulaParentheses("Boom!")
+        with pytest.raises(SystemExit) as e:
+            run("foo", "quack")
+            assert e.type == SystemExit
+            assert e.value.code == 1
+        parse_mock.assert_called_once()

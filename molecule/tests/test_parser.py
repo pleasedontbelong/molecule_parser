@@ -14,6 +14,10 @@ from molecule.parser import clean, multiply, parse_molecule, tokenizer
         ("(A(B))", "(A(B)1)1"),
         ("(A(B)C)", "(A(B)1C)1"),
         ("ABC(DE)(FG)", "(ABC(DE)1(FG)1)1"),
+        (" A", "(A)1"),
+        (" A ", "(A)1"),
+        ("\tA\nB\rC ", "(ABC)1"),
+        ("A ( B\n2\t) 3C", "(A(B2)3C)1"),
     ],
 )
 def test_clean(formula_str, expected):
@@ -63,6 +67,8 @@ def test_multiply(formula, expected):
         ("H2O", {"H": 2, "O": 1}),
         ("Mg(OH)2", {"Mg": 1, "O": 2, "H": 2}),
         ("K4[ON(SO3)2]2", {"K": 4, "O": 14, "N": 2, "S": 4}),
+        ("(H2O)0", {"H": 0, "O": 0}),
+        ("", {}),
     ],
 )
 def test_integration(formula, expected):

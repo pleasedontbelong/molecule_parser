@@ -1,5 +1,6 @@
 import sys
 import json
+from molecule.exceptions import InvalidFormula
 from molecule.parser import parse_molecule
 
 
@@ -13,7 +14,11 @@ python -m molecule "H2O"
 """
         )
         exit(1)
-    return json.dumps(parse_molecule(args[1]))
+    try:
+        return json.dumps(parse_molecule(args[1]))
+    except InvalidFormula as e:
+        print(str(e))
+        exit(1)
 
 
 if __name__ == "__main__":
