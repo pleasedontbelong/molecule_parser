@@ -57,3 +57,12 @@ You can also launch the tests on different python versions:
 ```sh
 tox
 ```
+
+## Lint
+
+Currently using `flake8` for checking pep8 and autoformatting using `black`.
+
+```sh
+flake8 .
+black . --check
+```
