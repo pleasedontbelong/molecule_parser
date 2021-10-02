@@ -49,5 +49,11 @@ pip install -r requirements.dev.txt
 Tests were made with pytest using coverage.
 
 ```sh
-$ pytest .
+pytest .
+```
+
+You can also launch the tests on different python versions:
+
+```sh
+tox
 ```

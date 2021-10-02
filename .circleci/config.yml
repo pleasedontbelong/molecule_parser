@@ -16,6 +16,12 @@ jobs:
           pkg-manager: pip
           pip-dependency-file: requirements.dev.txt
       - run:
+          name: Lint Flake8
+          command: flake8 .
+      - run:
+          name: Lint Black
+          command: black . --check
+      - run:
           name: Run tests
           command: tox
 
