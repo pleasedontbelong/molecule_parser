@@ -24,6 +24,7 @@ def test_valid_formula(formula_str):
         ("(ABc)d", InvalidFormulaFormat),
         ("(ABc)dE", InvalidFormulaFormat),
         ("(ABc)d2E", InvalidFormulaFormat),
+        ("(K-/Mg?)2", InvalidFormulaFormat),
         ("(K)Mg)", InvalidFormulaParentheses),
         ("K)Mg)", InvalidFormulaParentheses),
         ("KMg))", InvalidFormulaParentheses),
