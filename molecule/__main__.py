@@ -1,6 +1,6 @@
 import sys
 import json
-from molecule.parser import parse
+from molecule.parser import parse_molecule
 
 
 def run(*args):
@@ -13,7 +13,7 @@ python -m molecule "H2O"
 """
         )
         exit(1)
-    return json.dumps(parse(args[1]))
+    return json.dumps(parse_molecule(args[1]))
 
 
 if __name__ == "__main__":

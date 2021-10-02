@@ -1,5 +1,5 @@
 import pytest
-from molecule.parser import clean, multiply, parse, tokenizer
+from molecule.parser import clean, multiply, parse_molecule, tokenizer
 
 
 @pytest.mark.parametrize(
@@ -66,4 +66,4 @@ def test_multiply(formula, expected):
     ],
 )
 def test_integration(formula, expected):
-    assert parse(formula) == expected
+    assert parse_molecule(formula) == expected

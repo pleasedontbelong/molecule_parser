@@ -4,14 +4,14 @@ from unittest.mock import patch
 
 
 def test_run():
-    with patch("molecule.__main__.parse", return_value={}) as parse_mock:
+    with patch("molecule.__main__.parse_molecule", return_value={}) as parse_mock:
         run(*["foo", "H2O"])
         parse_mock.assert_called_once()
 
 
 @pytest.mark.parametrize("arguments", ([], ["foo"], ["foo", "bar", "zee"]))
 def test_run_invalid_arguments(arguments):
-    with patch("molecule.__main__.parse"):
+    with patch("molecule.__main__.parse_molecule"):
         with pytest.raises(SystemExit) as e:
             run(*arguments)
             assert e.type == SystemExit

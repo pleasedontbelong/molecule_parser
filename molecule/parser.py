@@ -66,5 +66,5 @@ def multiply(formula, result_map=None, multiplier=1):
     return result_map
 
 
-def parse(formula):
+def parse_molecule(formula):
     return multiply(tokenizer(clean(formula)))
