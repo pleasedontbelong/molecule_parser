@@ -29,6 +29,10 @@ def test_clean(formula_str, expected):
         ("(Ab2C)3", [3, ("C", 1), ("Ab", 2), "("]),
         ("(Ab23C)4", [4, ("C", 1), ("Ab", 23), "("]),
         ("((A2)3(B)4)5", [5, 4, ("B", 1), "(", 3, ("A", 2), "(", "("]),
+        (
+            "(K4(ON(SO3)2)2)1",
+            [1, 2, 2, ("O", 3), ("S", 1), "(", ("N", 1), ("O", 1), "(", ("K", 4), "("],
+        ),
     ],
 )
 def test_tokenizer(formula_str, expected):
@@ -51,3 +55,15 @@ def test_tokenizer(formula_str, expected):
 )
 def test_multiply(formula, expected):
     assert multiply((e for e in formula)) == expected
+
+
+@pytest.mark.parametrize(
+    "formula,expected",
+    [
+        ("H2O", {"H": 2, "O": 1}),
+        ("Mg(OH)2", {"Mg": 1, "O": 2, "H": 2}),
+        ("K4[ON(SO3)2]2", {"K": 4, "O": 14, "N": 2, "S": 4}),
+    ],
+)
+def test_integration(formula, expected):
+    assert parse(formula) == expected

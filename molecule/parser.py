@@ -60,7 +60,9 @@ def multiply(formula, result_map=None, multiplier=1):
                 )
 
         if type(element) is tuple:
-            result_map[element[0]] = element[1] * multiplier
+            result_map[element[0]] = (
+                result_map.get(element[0], 0) + element[1] * multiplier
+            )
     return result_map
 
 
