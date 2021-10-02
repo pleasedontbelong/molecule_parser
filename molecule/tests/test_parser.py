@@ -14,6 +14,10 @@ from molecule.parser import clean, multiply, parse_molecule, tokenizer
         ("(A(B))", "(A(B)1)1"),
         ("(A(B)C)", "(A(B)1C)1"),
         ("ABC(DE)(FG)", "(ABC(DE)1(FG)1)1"),
+        (" A", "(A)1"),
+        (" A ", "(A)1"),
+        ("\tA\nB\rC ", "(ABC)1"),
+        ("A ( B\n2\t) 3C", "(A(B2)3C)1"),
     ],
 )
 def test_clean(formula_str, expected):

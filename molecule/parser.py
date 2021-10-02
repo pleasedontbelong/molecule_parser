@@ -8,6 +8,8 @@ def clean(formula):
     Harmonize the formula. Replaces brackets and braces with parentheses, and
     adds a multiplier 1 at the end of every closing parentheses that doesn't have one
     """
+    # remove spaces
+    formula = re.sub(r"(\s+)", "", formula)
     # replaces start brackets
     formula = re.sub(r"[\[\{]", "(", formula)
     # replaces closing brackets
