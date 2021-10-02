@@ -12,6 +12,9 @@ from molecule.validator import validate
     ["K", "KMg", "BBe" "K(S2)O3Mg"],
 )
 def test_valid_formula(formula_str):
+    """
+    Should validate format, existence of elements and expected characters
+    """
     assert validate(formula_str)
 
 
@@ -33,6 +36,10 @@ def test_valid_formula(formula_str):
     ],
 )
 def test_invalid_formula(formula_str, exception):
+    """
+    Should raise an exception in case of invalid format, unbalanced parentheses
+    or unknown elements
+    """
     with pytest.raises(exception) as e:
         validate(formula_str)
         assert e.type == exception

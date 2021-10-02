@@ -40,6 +40,10 @@ def test_clean(formula_str, expected):
     ],
 )
 def test_tokenizer(formula_str, expected):
+    """
+    Should generate tokens from right to left ignoring opening parentheses and
+    grouping elements with their corresponding number of atoms insida a tuple
+    """
     assert list(tokenizer(formula_str)) == expected
 
 
@@ -58,6 +62,9 @@ def test_tokenizer(formula_str, expected):
     ],
 )
 def test_multiply(formula, expected):
+    """
+    Should correctly count the number of atoms for every element on the formula
+    """
     assert multiply((e for e in formula)) == expected
 
 
@@ -66,10 +73,16 @@ def test_multiply(formula, expected):
     [
         ("H2O", {"H": 2, "O": 1}),
         ("Mg(OH)2", {"Mg": 1, "O": 2, "H": 2}),
+        ("Mg( OH ) 2", {"Mg": 1, "O": 2, "H": 2}),
         ("K4[ON(SO3)2]2", {"K": 4, "O": 14, "N": 2, "S": 4}),
         ("(H2O)0", {"H": 0, "O": 0}),
+        ("K4[O(O3)2N(SO3)2]2", {"K": 4, "O": 26, "N": 2, "S": 4}),
         ("", {}),
     ],
 )
 def test_integration(formula, expected):
+    """
+    Integration tests, should validate the integration of cleaning, tokenizer and
+    multiply functions
+    """
     assert parse_molecule(formula) == expected
